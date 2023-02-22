@@ -5,14 +5,28 @@
   <div v-if="count > 4">
     4보다 큽니다.
   </div>
-  <ul>
-    <Fruit
-      v-for="fruit in fruits"
-      :key="fruit"
-      :name="fruit">
-      {{ fruit }}
-    </Fruit>
-  </ul>
+  <section v-if="hasFruit">
+    <h1>Fruit</h1>
+    <ul>
+      <Fruit
+        v-for="fruit in fruits"
+        :key="fruit"
+        :name="fruit">
+        {{ fruit }}
+      </Fruit>
+    </ul>
+  </section>
+  <section>
+    <h1>reverse Fruit</h1>
+    <ul>
+      <Fruit
+        v-for="fruit in reverseFruits"
+        :key="fruit"
+        :name="fruit">
+        {{ fruit }}
+      </Fruit>
+    </ul>
+  </section>
 </template>
 <script>
 import Fruit from "~/components/Fruit";
@@ -30,6 +44,16 @@ export default {
   methods: {
     increase() {
       this.count += 1
+    }
+  },
+  computed: {
+    hasFruit() {
+      return this.fruits.length > 0
+    },
+    reverseFruits() {
+      return this.fruits.map(fruit => {
+       return fruit.split('').reverse().join('')
+      })
     }
   }
 }
